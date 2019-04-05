@@ -15,6 +15,17 @@ class ContactForm(forms.Form):
 			raise forms.ValidationError("Email has to be gmail.com")
 		return email
 
+#login form
 class LoginForm(forms.Form):
 		username = forms.CharField()
 		password = forms.CharField(widget=forms.PasswordInput)
+
+#register form
+class RegisterForm(forms.Form):
+		username = forms.CharField()
+		email    = forms.EmailField()
+		password = forms.CharField(widget=forms.PasswordInput)
+
+		#confirm the password
+		password2=forms.CharField(label= 'Confirm Password', widget=forms.PasswordInput)
+

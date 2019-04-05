@@ -12,15 +12,26 @@
 		 <body>
 		 	<div class='text-center'>
 		 	<h1> {{ title}}</h1>
-		 	<h1>Hello, world! We're Collecting Books!</h1>
+		 	<h1>We're Collecting Books!</h1>
 		 	</div>
 
 		 	<div class='container'>
-		 	<div class='row'>
-			 	<div class='col'>
-			 		<p>{{content}}</p>
+			 	<div class='row'>
+				 	<div class='col'>
+				 	<h1> Join the creatives </h1>
+				 		<p>{{content}}</p>
+				 	</div>
 			 	</div>
-		 	</div>
+			 	{% if request.user.is_authenticated %}
+
+			 	<div class='row'>
+				 	<div class='col'>
+				 		{{ premium_content }}
+				 	</div>
+
+			 	</div>
+			 	{% endif %}
+
 		 	</div>
 		 	<!-- Optional JavaScript -->
 		 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

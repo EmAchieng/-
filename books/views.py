@@ -1,20 +1,23 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from  .forms import ContactForm, LoginForm
+from  .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
 	context = {
 	"title" : "Hello world!",
-	"content": "Welcome To The Home Page"
+	"content": "Welcome To our Home Page",
+	
 
 	}
+	if request.user.is_authenticated():
+		context["premium_content"] = "Learn something new everyday and share"
 	return render(request, "home_page.html", context)
 
 def about_page(request):
 	context = {
 	"title" : "About Page",
-	"content": "Welcome To The About Page"
+	"content": "Welcome To our About Page"
 	}
 	return render(request, "home_page.html", context)
 def contact_page(request):
@@ -22,7 +25,7 @@ def contact_page(request):
 	contact_form = ContactForm(request.POST or None)
 	context= {
 	"title" : "Contact",
-	"content": "Welcome To The Contact Page.",
+	"content": "Welcome To our Contact Page.",
 	"form" : contact_form
 	}
 	
@@ -58,18 +61,22 @@ def login_page(request):
 			# Redirect to a success page.
 				        
 			#context ['form'] = LoginForm()
-			return redirect("/login")
+			return redirect("/")
 		else:
 		    # Return an 'invalid login' error message.
 		    print("error")
 	return render(request, "auth/login.html", context)
 
 def register_page(request):
-	form = LoginForm(request.POST or None)
+	form = RegisterForm(request.POST or None)
+	context = {
+		"form" : form
+
+	}
 
 	if form.is_valid():
 		print(form.cleaned_data)
-	return render(request, "auth/register.html", {})
+	return render(request, "auth/register.html", context)
 
 def home_page_old(request):
 	html_= """
